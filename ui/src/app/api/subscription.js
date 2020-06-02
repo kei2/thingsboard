@@ -709,9 +709,10 @@ export default class Subscription {
 
     updateTimewindow() {
         this.timeWindow.interval = this.subscriptionTimewindow.aggregation.interval || 1000;
+        var offset = this.windowTimeOffset || 0;
         if (this.subscriptionTimewindow.realtimeWindowMs) {
-            this.timeWindow.maxTime = (moment()).valueOf() + this.timeWindow.stDiff;//eslint-disable-line
-            this.timeWindow.minTime = this.timeWindow.maxTime - this.subscriptionTimewindow.realtimeWindowMs;
+            this.timeWindow.maxTime = offset + (moment()).valueOf() + this.timeWindow.stDiff;//eslint-disable-line
+            this.timeWindow.minTime = offset + this.timeWindow.maxTime - this.subscriptionTimewindow.realtimeWindowMs;
         } else if (this.subscriptionTimewindow.fixedWindow) {
             this.timeWindow.maxTime = this.subscriptionTimewindow.fixedWindow.endTimeMs;
             this.timeWindow.minTime = this.subscriptionTimewindow.fixedWindow.startTimeMs;
@@ -727,6 +728,9 @@ export default class Subscription {
                     this.timeWindowConfig,
                     this.timeWindow.stDiff, this.stateData);
         }
+        var offset = this.windowTimeOffset || 0;             // kkojima ****
+        this.subscriptionTimewindow.startTs += offset;  // kkojima ****
+        this.subscriptionTimewindow.windowTimeOffset = offset;  // kkojima ****
         this.updateTimewindow();
         return this.subscriptionTimewindow;
     }

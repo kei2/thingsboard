@@ -30,6 +30,7 @@ import thingsboardWebCameraInputWidget from '../widget/lib/web-camera-input-widg
 import thingsboardRpcWidgets from '../widget/lib/rpc';
 
 import TbFlot from '../widget/lib/flot-widget';
+import ExTbFlot from '../widget/lib/exflot-widget';
 import TbAnalogueLinearGauge from '../widget/lib/analogue-linear-gauge';
 import TbAnalogueRadialGauge from '../widget/lib/analogue-radial-gauge';
 import TbAnalogueCompass from '../widget/lib/analogue-compass';
@@ -66,6 +67,7 @@ function WidgetService($rootScope, $http, $q, $filter, $ocLazyLoad, $window, $tr
     $window.lazyLoad = $ocLazyLoad;
 
     $window.TbFlot = TbFlot;
+    $window.ExTbFlot = ExTbFlot;
     $window.TbAnalogueLinearGauge = TbAnalogueLinearGauge;
     $window.TbAnalogueRadialGauge = TbAnalogueRadialGauge;
     $window.TbAnalogueCompass = TbAnalogueCompass;
