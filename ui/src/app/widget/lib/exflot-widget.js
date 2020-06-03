@@ -466,7 +466,7 @@ export default class ExTbFlot {
 
     init($element, subscription) {
         this.subscription = subscription;
-        this.subscription.windowTimeOffset = this.ctx.windowTimeOffset || 0;
+        this.subscription.windowTimeOffset = this.ctx.settings.windowTimeOffset || 0;
         this.$element = $element;
         var colors = [];
         this.yaxes = [];
@@ -958,6 +958,11 @@ export default class ExTbFlot {
         };
 
         var properties = schema["schema"]["properties"];
+        properties["windowTimeOffset"] = {
+            "title": "Time Offset [ms]",
+            "type": "number",
+            "default": 0
+        };
         properties["stack"] = {
             "title": "Stacking",
             "type": "boolean",
@@ -1120,7 +1125,8 @@ export default class ExTbFlot {
         };
 
         schema["schema"]["required"] = [];
-        schema["form"] = ["stack"];
+        schema["form"] = ["windowTimeOffset"];
+        schema["form"].push("stack");
         if (chartType === 'graph') {
             schema["form"].push("smoothLines");
         }
